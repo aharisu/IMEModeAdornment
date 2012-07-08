@@ -20,17 +20,9 @@ namespace aharisu.IMEModeAdornment
         [TextViewRole(PredefinedTextViewRoles.Document)]
         public AdornmentLayerDefinition editorAdornmentLayer = null;
 
-        private OptionsPageGeneral _optionsPageGeneral;
-
-        public IMEModeAdornmentAdornmentFactory()
-        {
-            _optionsPageGeneral = new OptionsPageGeneral();
-            _optionsPageGeneral.LoadSettingsFromStorage();
-        }
-
         public void TextViewCreated(IWpfTextView textView)
         {
-            new IMEModeAdornment(textView, _optionsPageGeneral);
+            new IMEModeAdornment(textView);
         }
     }
 }

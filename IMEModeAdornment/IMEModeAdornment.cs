@@ -14,8 +14,6 @@ namespace aharisu.IMEModeAdornment
     {
         private const double LeftMarkerWidth = 20;
 
-        private OptionsPageGeneral _optionsPageGeneral;
-
         private bool _hasFocus = false;
         private bool _enableIME = false;
 
@@ -23,9 +21,8 @@ namespace aharisu.IMEModeAdornment
         private IWpfTextView _view;
         private IAdornmentLayer _adornmentLayer;
 
-        public IMEModeAdornment(IWpfTextView view, OptionsPageGeneral options)
+        public IMEModeAdornment(IWpfTextView view)
         {
-            _optionsPageGeneral = options;
             _view = view;
 
             InputMethod.Current.ImeState = InputMethodState.DoNotCare;
@@ -91,17 +88,17 @@ namespace aharisu.IMEModeAdornment
                         System.Drawing.Color color;
                         if (_enableIME)
                         {
-                            color = _optionsPageGeneral.EnableIMEColor;
+                            color = Settings.EnableIMEColor;
                         }
                         else
                         {
-                            color = _optionsPageGeneral.DisableIMEColor;
+                            color = Settings.DisableIMEColor;
                         }
                         Brush backgroundBrush = new SolidColorBrush(Color.FromArgb(color.A, color.R, color.G, color.G));
                         backgroundBrush.Freeze();
 
                         Geometry rectangleGeometry = new RectangleGeometry(new Rect(new Size(
-                            _optionsPageGeneral.Style == AdornmentStyle.Line ? _view.ViewportWidth + 1 : LeftMarkerWidth, //width
+                            Settings.Style == AdornmentStyle.Line ? _view.ViewportWidth + 1 : LeftMarkerWidth, //width
                             containingTextViewLine.Height - 1)));
                         GeometryDrawing geometryDrawing = new GeometryDrawing(backgroundBrush, new Pen(backgroundBrush, 1), rectangleGeometry);
                         geometryDrawing.Freeze();
@@ -112,7 +109,7 @@ namespace aharisu.IMEModeAdornment
                         _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _image, null);
                     }
 
-                    Canvas.SetLeft(_image, _optionsPageGeneral.Style == AdornmentStyle.Line ? _view.ViewportLeft + 1 : 1);
+                    Canvas.SetLeft(_image, Settings.Style == AdornmentStyle.Line ? _view.ViewportLeft + 1 : 1);
                     Canvas.SetTop(_image, containingTextViewLine.Top);
                     return;
                 }
