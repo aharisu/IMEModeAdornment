@@ -77,5 +77,15 @@ namespace aharisu.IMEModeAdornment
             }
         }
 
+        public override void LoadSettingsFromStorage()
+        {
+            Settings.LoadSettingsFromStorage();
+        }
+
+        public override void SaveSettingsToStorage()
+        {
+            Settings.SaveSettingsToStorage();
+        }
+
     }
 }

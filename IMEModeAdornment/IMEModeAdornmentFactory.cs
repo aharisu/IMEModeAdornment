@@ -10,6 +10,12 @@ namespace aharisu.IMEModeAdornment
     [TextViewRole(PredefinedTextViewRoles.Document)]
     internal sealed class IMEModeAdornmentAdornmentFactory : IWpfTextViewCreationListener
     {
+
+        public IMEModeAdornmentAdornmentFactory()
+        {
+            Settings.LoadSettingsFromStorage();
+        }
+
         /// <summary>
         /// Defines the adornment layer for the scarlet adornment. This layer is ordered 
         /// after the selection layer in the Z-order
